@@ -6,6 +6,8 @@
 namespace WYLJUS002{
 
 class HuffmanNode{
+    friend HuffmanTree;
+
     private:
 
     std::shared_ptr<HuffmanNode> left;
@@ -14,6 +16,7 @@ class HuffmanNode{
     bool internal;
     char letter;
     int frequency;
+    std::string code;
 
 
     public:
