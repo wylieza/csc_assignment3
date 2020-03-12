@@ -4,15 +4,18 @@
 #include <fstream> //File reading
 #include <sstream> //String stream
 #include <iostream> //cout function
+#include <unordered_map> //Unordered map 
+#include <memory>
 
 namespace WYLJUS002{
 
 
 class HuffmanTree{
     private:
-    std::shared_ptr<int> root = nullptr;
+    std::shared_ptr<int> root = nullptr; //TODO -> use generic types or compile this and node together
     std::string data;
     std::string compressed_data;
+    std::unordered_map<char, int> frequencies;
 
 
     public:
