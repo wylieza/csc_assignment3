@@ -1,5 +1,4 @@
 #include "HuffmanTree.h"
-#include "HuffmanNode.h"
 
 namespace WYLJUS002{
 
@@ -32,9 +31,9 @@ namespace WYLJUS002{
 
         if(file){
             while(getline(file, line)){
-                strs << data << "\n" << line;
-                data = strs.str();
+                strs << line << std::endl;
             }
+            data = strs.str(); //TODO -> Remove the last \n from this data
 
         }else{
             std::cout << "An error occured while trying to open file!";
@@ -43,7 +42,10 @@ namespace WYLJUS002{
 
 
     void HuffmanTree::generate_freq_map(){
-        
+        for (int i = 0; i < data.length(); i++){
+            frequencies[(char) data[i]] += 1;
+            std::cout << "Letter: " << (char) data[i] << " freq of: " << frequencies[(char) data[i]] << std::endl;
+        }
         
     }
 

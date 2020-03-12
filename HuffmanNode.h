@@ -5,6 +5,8 @@
 
 namespace WYLJUS002{
 
+class HuffmanTree;
+
 class HuffmanNode{
     friend HuffmanTree;
 
@@ -25,9 +27,9 @@ class HuffmanNode{
     HuffmanNode(int freq);
     HuffmanNode(int freq, char lett);
 
-    std::shared_ptr<HuffmanNode> get_left();
+    std::weak_ptr<HuffmanNode> get_left();
 
-    std::shared_ptr<HuffmanNode> get_right();
+    std::weak_ptr<HuffmanNode> get_right();
 
     void set_left(std::shared_ptr<HuffmanNode> left);
 
