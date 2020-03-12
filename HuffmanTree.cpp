@@ -7,6 +7,11 @@ namespace WYLJUS002{
 
     }
 
+    //Destructor
+    HuffmanTree::~HuffmanTree(){
+        root = nullptr;
+    }
+
 
     //Tree construction
     void HuffmanTree::generate_tree(){
@@ -50,7 +55,7 @@ namespace WYLJUS002{
     }
 
     void HuffmanTree::populate_tree(){
-
+        std::priority_queue<HuffmanNode, compare> node_pq;
 
     }
 
@@ -62,6 +67,11 @@ namespace WYLJUS002{
 
     void HuffmanTree::compress_data(){
         
+    }
+
+    bool compare(const HuffmanNode &a, const HuffmanNode &b){
+        //return a > b;
+        return a.frequency > b.frequency;
     }
 
 

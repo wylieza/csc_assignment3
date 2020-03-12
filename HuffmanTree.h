@@ -9,10 +9,11 @@
 
 namespace WYLJUS002{
 
+class HuffmanNode;
 
 class HuffmanTree{
     private:
-    std::shared_ptr<int> root = nullptr; //TODO -> use generic types or compile this and node together
+    std::shared_ptr<HuffmanNode> root = nullptr;
     std::string data;
     std::string compressed_data;
     std::unordered_map<char, int> frequencies;
@@ -23,6 +24,9 @@ class HuffmanTree{
     //Constructor
     HuffmanTree();
 
+    //Destructor
+    ~HuffmanTree();
+
 
     //Tree construction
     void generate_tree(); //Build up the tree using freq's in unordered map
@@ -32,6 +36,8 @@ class HuffmanTree{
     void populate_tree(); //Generate the nodes in the tree
     void determine_codetable(); //Assign the nodes with huffman codes
     void compress_data(); //Compress the data and return it 
+    
+    //bool compare(const HuffmanNode &a, const HuffmanNode &b);
 
 
 

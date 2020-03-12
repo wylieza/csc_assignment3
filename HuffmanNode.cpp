@@ -38,7 +38,9 @@ namespace WYLJUS002{
 
 
     //Destructor
-
+    HuffmanNode::~HuffmanNode(){
+        //Should I set left and right to nullptrs?
+    }
 
 
 
@@ -48,6 +50,13 @@ namespace WYLJUS002{
 
     //Move assignment operator
 
+
+    //Operator overloading
+
+    //HuffmanNode operator<(HuffmanNode const &nodel, HuffmanNode const &noder){
+        
+    //}
+    //HuffmanNode operator>(HuffmanNode const &node);
 
 
     //Traversal

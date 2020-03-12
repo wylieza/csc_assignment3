@@ -23,9 +23,21 @@ class HuffmanNode{
 
     public:
 
+    //Constructors
+
     HuffmanNode();
     HuffmanNode(int freq);
     HuffmanNode(int freq, char lett);
+
+    //Destructor
+    ~HuffmanNode();
+
+    //Operator overloading
+
+    //bool operator<(HuffmanNode const &nodel, HuffmanNode const &noder);
+    //HuffmanNode operator>(HuffmanNode const &node);
+
+    //Utility functions
 
     std::weak_ptr<HuffmanNode> get_left();
 
