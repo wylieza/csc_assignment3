@@ -53,11 +53,13 @@ namespace WYLJUS002{
 
     //Operator overloading
 
-    //HuffmanNode operator<(HuffmanNode const &nodel, HuffmanNode const &noder){
-        
-    //}
-    //HuffmanNode operator>(HuffmanNode const &node);
+    bool HuffmanNode::operator<(HuffmanNode &noder){
+        return this->frequency<noder.frequency;
+    }
 
+    bool HuffmanNode::operator>(HuffmanNode &noder){
+        return this->frequency>noder.frequency;
+    }
 
     //Traversal
     std::weak_ptr<HuffmanNode> HuffmanNode::get_left(){ //Consider returning weak ptr

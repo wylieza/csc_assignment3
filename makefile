@@ -1,7 +1,7 @@
 GCC = g++
 
 huffencode: huffencode.o HuffmanTree.o HuffmanNode.o
-	$(GCC) -o huffencode huffencode.o HuffmanTree.o -std=c++11
+	$(GCC) -o huffencode huffencode.o HuffmanTree.o HuffmanNode.o -std=c++11
 
 HuffmanTree.o: HuffmanTree.cpp HuffmanTree.h
 	$(GCC) -c -o HuffmanTree.o HuffmanTree.cpp -std=c++11

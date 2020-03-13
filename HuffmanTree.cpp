@@ -1,4 +1,5 @@
 #include "HuffmanTree.h"
+#include "HuffmanNode.h"
 
 namespace WYLJUS002{
 
@@ -54,8 +55,37 @@ namespace WYLJUS002{
         
     }
 
+
     void HuffmanTree::populate_tree(){
-        std::priority_queue<HuffmanNode, compare> node_pq;
+        std::priority_queue<HuffmanNode, std::vector<HuffmanNode>, HuffmanTree::compare> node_pqueue;
+
+        //Load up all frequency-letter pairs into priority queue of nodes
+        for(auto lfitem : frequencies){
+            HuffmanNode n(lfitem.second, lfitem.first); //(frequency, letter)
+            node_pqueue.push(n);
+        }
+
+        std::cout << "Debug point 1\n";
+
+        //Pop all the prioritised nodes in order to build up the tree (From bottom up...)
+        while(node_pqueue.size() > 1){ //At least two nodes left
+            std::cout << "Debug point 2\n";
+            HuffmanTree::root->set_left(std::make_shared<HuffmanNode>(node_pqueue.top()));
+            std::cout << "Debug point 3\n";
+            node_pqueue.pop();
+
+            HuffmanTree::root->set_right(std::make_shared<HuffmanNode>(node_pqueue.top()));
+            node_pqueue.pop();
+
+            root->set_frequency(root->get_left().lock()->get_frequency() + root->get_right().lock()->get_frequency());
+
+            if(node_pqueue.size() > 0){
+                HuffmanNode n = *root;
+                node_pqueue.push(n);
+
+                //node_pqueue.push(*root); //This may give me issues! (Needs to 'copy' - copy constructor to the resucue?)
+            }
+        }
 
     }
 
@@ -69,9 +99,8 @@ namespace WYLJUS002{
         
     }
 
-    bool compare(const HuffmanNode &a, const HuffmanNode &b){
-        //return a > b;
-        return a.frequency > b.frequency;
+    bool HuffmanTree::compare::operator()(HuffmanNode &a, HuffmanNode &b){
+        return &a < &b;
     }
 
 

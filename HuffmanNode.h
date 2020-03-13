@@ -34,8 +34,8 @@ class HuffmanNode{
 
     //Operator overloading
 
-    //bool operator<(HuffmanNode const &nodel, HuffmanNode const &noder);
-    //HuffmanNode operator>(HuffmanNode const &node);
+    bool operator<(HuffmanNode &noder);
+    bool operator>(HuffmanNode &noder);
 
     //Utility functions
 

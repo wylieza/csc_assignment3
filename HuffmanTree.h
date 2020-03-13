@@ -4,8 +4,9 @@
 #include <fstream> //File reading
 #include <sstream> //String stream
 #include <iostream> //cout function
-#include <unordered_map> //Unordered map 
+#include <unordered_map> //Unordered map - freq counter
 #include <memory>
+#include <queue> //Priority queue
 
 namespace WYLJUS002{
 
@@ -36,13 +37,13 @@ class HuffmanTree{
     void populate_tree(); //Generate the nodes in the tree
     void determine_codetable(); //Assign the nodes with huffman codes
     void compress_data(); //Compress the data and return it 
-    
-    //bool compare(const HuffmanNode &a, const HuffmanNode &b);
 
-
-
+    struct compare{
+        bool operator()(HuffmanNode &a, HuffmanNode &b);
+    };
     
 };
+
 }
 
 #endif
