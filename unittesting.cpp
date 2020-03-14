@@ -31,6 +31,11 @@ TEST_CASE("Tree Population", "[populate_tree]"){
     REQUIRE(1);
 }
 
+
+TEST_CASE("Tree Destruction", "[populate_tree]"){
+    REQUIRE(1); //Get a weak ptr to a leaf node, nullptr the root and then try access the leaf..
+}
+
 TEST_CASE("Code Table Generation", "[determine_codetable]"){
     REQUIRE(1);
 }

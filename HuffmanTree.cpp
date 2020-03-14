@@ -51,7 +51,7 @@ namespace WYLJUS002{
     void HuffmanTree::generate_freq_map(){
         for (int i = 0; i < data.length(); i++){
             frequencies[(char) data[i]] += 1;
-            std::cout << "Letter: " << (char) data[i] << " freq of: " << frequencies[(char) data[i]] << std::endl;
+            //std::cout << "Letter: " << (char) data[i] << " freq of: " << frequencies[(char) data[i]] << std::endl;
         }
         
     }
@@ -67,14 +67,17 @@ namespace WYLJUS002{
         }
 
         //Pop all the prioritised nodes in order to build up the tree (From bottom up...)
+        //Smallet node is the left child
         while(node_pqueue.size() > 1){ //At least two nodes left
             HuffmanNode n;
 
             HuffmanTree::root->set_left(std::make_shared<HuffmanNode>(node_pqueue.top()));
             node_pqueue.pop();
+            std::cout << "Left freq: " << root->get_left().lock()->get_frequency() << std::endl;
 
             HuffmanTree::root->set_right(std::make_shared<HuffmanNode>(node_pqueue.top()));
             node_pqueue.pop();
+            std::cout << "Right freq: " << root->get_right().lock()->get_frequency() << std::endl;
 
             root->set_frequency(root->get_left().lock()->get_frequency() + root->get_right().lock()->get_frequency());
 
@@ -82,7 +85,6 @@ namespace WYLJUS002{
                 node_pqueue.push(*root);
             }
         }
-
     }
 
 
@@ -96,7 +98,9 @@ namespace WYLJUS002{
     }
 
     bool HuffmanTree::compare::operator()(HuffmanNode &a, HuffmanNode &b){
-        return &a < &b;
+        //std::cout << "comparing: " << a.get_frequency() << " > " << b.get_frequency() << std::endl;
+        //return a.get_frequency() > b.get_frequency();
+        return a > b;
     }
 
 
