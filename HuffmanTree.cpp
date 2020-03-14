@@ -5,7 +5,8 @@ namespace WYLJUS002{
 
     //Constructor
     HuffmanTree::HuffmanTree(){
-
+        HuffmanNode rootn;
+        root = std::make_shared<HuffmanNode>(rootn);
     }
 
     //Destructor
@@ -65,13 +66,11 @@ namespace WYLJUS002{
             node_pqueue.push(n);
         }
 
-        std::cout << "Debug point 1\n";
-
         //Pop all the prioritised nodes in order to build up the tree (From bottom up...)
         while(node_pqueue.size() > 1){ //At least two nodes left
-            std::cout << "Debug point 2\n";
+            HuffmanNode n;
+
             HuffmanTree::root->set_left(std::make_shared<HuffmanNode>(node_pqueue.top()));
-            std::cout << "Debug point 3\n";
             node_pqueue.pop();
 
             HuffmanTree::root->set_right(std::make_shared<HuffmanNode>(node_pqueue.top()));
@@ -80,10 +79,7 @@ namespace WYLJUS002{
             root->set_frequency(root->get_left().lock()->get_frequency() + root->get_right().lock()->get_frequency());
 
             if(node_pqueue.size() > 0){
-                HuffmanNode n = *root;
-                node_pqueue.push(n);
-
-                //node_pqueue.push(*root); //This may give me issues! (Needs to 'copy' - copy constructor to the resucue?)
+                node_pqueue.push(*root);
             }
         }
 
