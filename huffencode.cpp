@@ -14,5 +14,6 @@ int main(int argc, char *argv){
     tree.data_from_file("testdata.txt");
     tree.generate_freq_map();
     tree.populate_tree();
+    tree.build_codetable();
 
 }

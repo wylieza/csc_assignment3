@@ -19,7 +19,7 @@ namespace WYLJUS002{
     void HuffmanTree::generate_tree(){
         generate_freq_map();
         populate_tree();
-        determine_codetable();
+        build_codetable();
         compress_data();
 
     }
@@ -40,7 +40,8 @@ namespace WYLJUS002{
             while(getline(file, line)){
                 strs << line << std::endl;
             }
-            data = strs.str(); //TODO -> Remove the last \n from this data
+            data = strs.str();
+            data = data.substr(0, data.length()-1); //Remove the last \n
 
         }else{
             std::cout << "An error occured while trying to open file!";
@@ -73,11 +74,11 @@ namespace WYLJUS002{
 
             HuffmanTree::root->set_left(std::make_shared<HuffmanNode>(node_pqueue.top()));
             node_pqueue.pop();
-            std::cout << "Left freq: " << root->get_left().lock()->get_frequency() << std::endl;
+            //std::cout << "Left freq: " << root->get_left().lock()->get_frequency() << std::endl;
 
             HuffmanTree::root->set_right(std::make_shared<HuffmanNode>(node_pqueue.top()));
             node_pqueue.pop();
-            std::cout << "Right freq: " << root->get_right().lock()->get_frequency() << std::endl;
+            //std::cout << "Right freq: " << root->get_right().lock()->get_frequency() << std::endl;
 
             root->set_frequency(root->get_left().lock()->get_frequency() + root->get_right().lock()->get_frequency());
 
@@ -87,8 +88,25 @@ namespace WYLJUS002{
         }
     }
 
+    void HuffmanTree::build_codetable(){
+        std::string code;
 
-    void HuffmanTree::determine_codetable(){
+        build_codetable(root, code);
+    }
+
+
+    void HuffmanTree::build_codetable(const std::shared_ptr<HuffmanNode> &node, std::string code){
+        if(node->get_letter() == '\0'){
+            code.push_back('0');
+            build_codetable(node->get_left().lock(), code);
+        }else{
+            codetbl[(char) node->get_letter()] = code;
+            std::cout << "letter: >" << node->get_letter() << "< frequency: " << frequencies[node->get_letter()] << " code: " << code << "<---\n";
+        }
+        if(node->get_letter() == '\0'){
+            code[code.length()-1] = '1';
+            build_codetable(node->get_right().lock(), code);
+        }
         
     }
 

@@ -18,6 +18,7 @@ class HuffmanTree{
     std::string data;
     std::string compressed_data;
     std::unordered_map<char, int> frequencies;
+    std::unordered_map<char, std::string> codetbl;
 
 
     public:
@@ -35,7 +36,8 @@ class HuffmanTree{
     void data_from_file(std::string fname); //Read input from file into data string
     void generate_freq_map(); //Generate the frequency map based on string
     void populate_tree(); //Generate the nodes in the tree
-    void determine_codetable(); //Assign the nodes with huffman codes
+    void build_codetable();
+    void build_codetable(const std::shared_ptr<HuffmanNode> &node, std::string code); //Assign the nodes with huffman codes
     void compress_data(); //Compress the data and return it 
 
     struct compare{
