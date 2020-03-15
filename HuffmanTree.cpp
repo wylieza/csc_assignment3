@@ -126,11 +126,9 @@ namespace WYLJUS002{
 
     void HuffmanTree::write_to_file(std::string fname){
         std::ofstream ofile;
-        std::stringstream filename;
 
         //save compressed data
-        filename << fname << ".txt";
-        ofile.open(filename.str());
+        ofile.open(fname);
         if(ofile){
             ofile << compressed_data;
             ofile.close();
@@ -139,9 +137,13 @@ namespace WYLJUS002{
         }
 
         //save code table
-        filename.str("");
-        filename << fname << ".hdr";
-        ofile.open(filename.str());
+        std::stringstream hdrfname;
+        if(fname.find('.') != std::string::npos){
+            hdrfname << fname.substr(0, fname.find('.')) << ".hdr";
+        }else{
+            hdrfname << fname << ".hdr";
+        }
+        ofile.open(hdrfname.str());
         if(ofile){
             for(auto lcitem : codetbl){
                 if (lcitem.first == '\n'){
