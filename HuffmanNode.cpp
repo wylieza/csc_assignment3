@@ -44,19 +44,17 @@ namespace WYLJUS002{
 
     //Destructor
     HuffmanNode::~HuffmanNode(){
-        //Should I set left and right to nullptrs?
+        //Nothing need be done here, using smart pointers
     }
 
 
-
+    //Operator overloading
+    
     //Copy assignment operator
-
 
 
     //Move assignment operator
 
-
-    //Operator overloading
 
     bool HuffmanNode::operator<(HuffmanNode &noder){
         return this->frequency<noder.frequency;

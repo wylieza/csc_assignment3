@@ -49,8 +49,8 @@ class HuffmanTree{
     void write_to_file(std::string fname); //Writes the message to file and writes the code table to file
     void write_to_binary_file(std::string fname); //Writes the message in compressed bidanry form
     void read_from_binary_file(std::string fname); //Reads in the data from the binary file
-    std::string get_binary_fdata();
-    void decompress_data();
+    std::string get_binary_fdata(); //UNITTESTING
+    //void decompress_data(); //Bonus functionality, not required
 
     struct compare{
         bool operator()(HuffmanNode &a, HuffmanNode &b);

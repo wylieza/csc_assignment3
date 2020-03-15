@@ -80,11 +80,9 @@ namespace WYLJUS002{
 
             HuffmanTree::root->set_left(std::make_shared<HuffmanNode>(node_pqueue.top()));
             node_pqueue.pop();
-            //std::cout << "Left freq: " << root->get_left().lock()->get_frequency() << std::endl;
 
             HuffmanTree::root->set_right(std::make_shared<HuffmanNode>(node_pqueue.top()));
             node_pqueue.pop();
-            //std::cout << "Right freq: " << root->get_right().lock()->get_frequency() << std::endl;
 
             root->set_frequency(root->get_left().lock()->get_frequency() + root->get_right().lock()->get_frequency());
 
@@ -184,16 +182,12 @@ namespace WYLJUS002{
         int index = 0;
         uint8_t bit_seq[num_bytes];
 
-        //std::cout << compressed_data << std::endl << "-----------------------\n"; 
-
         for(int i = 0; i < sizeof(bit_seq); i++){
             bit_seq[i] = 0;
             for (int shift = 7; shift > -1 && index < num_bits; shift--){
                 bit_seq[i] |= ((int) compressed_data[index++] - (int) '0') << shift;
             }
-            //std::cout << std::bitset<8>(bit_seq[i]);
         }
-        //std::cout << std::endl;
 
         //Write to file
         std::stringstream filename;
@@ -224,8 +218,7 @@ namespace WYLJUS002{
 
 
     void HuffmanTree::read_from_binary_file(std::string fname){
-        //raw_in_cdata
-         //Read from file
+        //Read from file
         std::stringstream filename;
         if(fname.find('.') != std::string::npos){
             filename << fname.substr(0, fname.find('.')) << ".raw";
@@ -280,7 +273,7 @@ namespace WYLJUS002{
         return raw_in_cdata;
     }
 
-
+/*
     void HuffmanTree::decompress_data(){ //Easter egg functionality - not required!
         int index = 1;
         std::string temp = compressed_data;
@@ -312,7 +305,7 @@ namespace WYLJUS002{
     bool HuffmanTree::compare::operator()(HuffmanNode &a, HuffmanNode &b){
         return a > b;
     }
-
+*/
 
 
 

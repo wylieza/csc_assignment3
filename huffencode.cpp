@@ -1,11 +1,4 @@
-//Imports
-
-
 #include "HuffmanTree.h"
-
-
-//Functions
-
 
 int main(int argc, char *argv[]){
 
@@ -28,7 +21,6 @@ int main(int argc, char *argv[]){
     tree.write_to_binary_file(outputfile);
 
     tree.read_from_binary_file(outputfile);
-    //std::cout << "hello\n";
 
     //tree.decompress_data(); //Bonus feature, not required
 
