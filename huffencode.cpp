@@ -16,6 +16,7 @@ int main(int argc, char *argv){
     tree.populate_tree();
     tree.build_codetable();
     tree.compress_data();
+    tree.write_to_file("outputtest");
     tree.decompress_data();
 
 }

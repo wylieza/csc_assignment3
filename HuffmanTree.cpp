@@ -135,10 +135,21 @@ namespace WYLJUS002{
         }
 
         //save code table
-        filename.str(fname);
-        filename << ".hdr";
-        
-    
+        filename.str("");
+        filename << fname << ".hdr";
+        ofile.open(filename.str());
+        if(ofile){
+            for(auto lcitem : codetbl){
+                if (lcitem.first == '\n'){
+                    ofile << "Letter: \\n" << " - Code: " << lcitem.second << std::endl;
+                }else{
+                    ofile << "Letter: " << lcitem.first << "  - Code: " << lcitem.second << std::endl;
+                }
+            }
+            ofile.close();
+        }else{
+            std::cout << "An error occured during file write out!\n";
+        }
     }
 
 
