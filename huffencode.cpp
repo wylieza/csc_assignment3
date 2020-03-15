@@ -19,12 +19,13 @@ int main(int argc, char *argv[]){
 
     WYLJUS002::HuffmanTree tree;
 
-    tree.data_from_file(inputfile);
-    tree.generate_freq_map();
-    tree.populate_tree();
+    tree.generate_tree(inputfile);
+
     tree.build_codetable();
     tree.compress_data();
+
     tree.write_to_file(outputfile);
+    
     tree.decompress_data();
 
 }

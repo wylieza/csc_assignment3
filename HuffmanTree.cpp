@@ -19,8 +19,6 @@ namespace WYLJUS002{
     void HuffmanTree::generate_tree(){
         generate_freq_map();
         populate_tree();
-        build_codetable();
-        compress_data();
 
     }
 
@@ -48,6 +46,10 @@ namespace WYLJUS002{
         }
     }
 
+    std::string HuffmanTree::get_data(){
+        return this->data;
+    }
+
 
     void HuffmanTree::generate_freq_map(){
         for (int i = 0; i < data.length(); i++){
@@ -55,6 +57,10 @@ namespace WYLJUS002{
             //std::cout << "Letter: " << (char) data[i] << " freq of: " << frequencies[(char) data[i]] << std::endl;
         }
         
+    }
+
+    std::unordered_map<char, int> HuffmanTree::get_fmap(){
+        return frequencies;
     }
 
 
@@ -169,11 +175,7 @@ namespace WYLJUS002{
     }
 
 
-
-
-
-
-    void HuffmanTree::decompress_data(){
+    void HuffmanTree::decompress_data(){ //Easter egg functionality - not required!
         int index = 1;
         std::string temp = compressed_data;
         std::string decoded = "";
@@ -202,8 +204,6 @@ namespace WYLJUS002{
     }
 
     bool HuffmanTree::compare::operator()(HuffmanNode &a, HuffmanNode &b){
-        //std::cout << "comparing: " << a.get_frequency() << " > " << b.get_frequency() << std::endl;
-        //return a.get_frequency() > b.get_frequency();
         return a > b;
     }
 

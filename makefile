@@ -13,15 +13,18 @@ huffencode.o: huffencode.cpp
 HuffmanNode.o: HuffmanNode.cpp HuffmanNode.h
 	$(GCC) -c -o HuffmanNode.o HuffmanNode.cpp -std=c++11 $(CARGS)
 
-unittesting: unittesting.o huffencode.o HuffmanTree.o HuffmanNode.o
-	$(GCC) -o unittesting unittesting.o
+unittesting: unittesting.o HuffmanTree.o HuffmanNode.o
+	$(GCC) -o unittesting unittesting.o HuffmanTree.o HuffmanNode.o
 	./unittesting
 
 unittesting.o: unittesting.cpp
 	$(GCC) -c -o unittesting.o unittesting.cpp
 
 run: huffencode
-	./huffencode $(ARGS)
+	./huffencode $(args)
+
+unittest: unittesting
+	./unittesting
 
 clean:
 	rm -rf huffencode huffencode.o HuffmanTree.o
