@@ -101,7 +101,6 @@ namespace WYLJUS002{
             build_codetable(node->get_left().lock(), code);
         }else{
             codetbl[(char) node->get_letter()] = code;
-            std::cout << "letter: >" << node->get_letter() << "< frequency: " << frequencies[node->get_letter()] << " code: " << code << "<---\n";
         }
         if(node->get_letter() == '\0'){
             code[code.length()-1] = '1';
@@ -116,7 +115,12 @@ namespace WYLJUS002{
             cdstream << codetbl[dat];
         }
         compressed_data = cdstream.str();
-        std::cout << "Compressed stream >" << compressed_data << "< done\n";
+        int uncompressed_size = data.length();
+        int compressed_size = data.length()/8 + (data.length()%8? 1:0);
+        std::cout << "\n>>> Data compression statistics <<<\nOriginal Data Size: " << uncompressed_size << " bytes\n";
+        std::cout << "Compressed Data Size: " << compressed_size << " bytes\n";
+        std::cout << "Compression Ratio: " << (double) compressed_size/ (double) uncompressed_size << std::endl << std::endl;
+
     }
 
 
@@ -192,7 +196,7 @@ namespace WYLJUS002{
             }
         }
 
-        std::cout << "Message >" << decoded << "< end \n";
+        //std::cout << "Message >" << decoded << "< end \n";
     }
 
     bool HuffmanTree::compare::operator()(HuffmanNode &a, HuffmanNode &b){
