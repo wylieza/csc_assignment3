@@ -16,8 +16,6 @@ class HuffmanNode{
     std::shared_ptr<HuffmanNode> testleft;
     std::shared_ptr<HuffmanNode> left;
     std::shared_ptr<HuffmanNode> right;
-
-    bool internal;
     char letter;
     int frequency;
     std::string code;

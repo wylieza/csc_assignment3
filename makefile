@@ -15,7 +15,6 @@ HuffmanNode.o: HuffmanNode.cpp HuffmanNode.h
 
 unittesting: unittesting.o HuffmanTree.o HuffmanNode.o
 	$(GCC) -o unittesting unittesting.o HuffmanTree.o HuffmanNode.o
-	./unittesting
 
 unittesting.o: unittesting.cpp
 	$(GCC) -c -o unittesting.o unittesting.cpp

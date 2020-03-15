@@ -6,7 +6,6 @@ namespace WYLJUS002{
     //Default Constructor
     HuffmanNode::HuffmanNode(){
         //std::cout << "Default constructor called\n";        
-        internal = true;
         frequency = -1;
         letter = '\0';
         left = nullptr;
@@ -21,7 +20,6 @@ namespace WYLJUS002{
 
     HuffmanNode::HuffmanNode(int freq, char lett){
         //std::cout << "Non-default constructor called\n"; 
-        internal = false;
         frequency = freq;
         letter = lett;
         left = nullptr;
@@ -35,7 +33,6 @@ namespace WYLJUS002{
     //Copy constructor
     HuffmanNode::HuffmanNode(const HuffmanNode &node){
         //std::cout << "Copy constructor called\n"; 
-        this->internal = node.internal;
         this->frequency = node.frequency;
         this->letter = node.letter;
         this->left = node.left;
@@ -95,7 +92,6 @@ namespace WYLJUS002{
 
     void HuffmanNode::set_letter(char lett){
         letter = lett;
-        internal = false;
     }
 
     int HuffmanNode::get_frequency(){

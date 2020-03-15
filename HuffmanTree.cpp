@@ -94,6 +94,10 @@ namespace WYLJUS002{
         }
     }
 
+    std::shared_ptr<HuffmanNode> HuffmanTree::get_root(){
+        return this->root;
+    }
+
     void HuffmanTree::build_codetable(){
         std::string code;
 
@@ -115,6 +119,10 @@ namespace WYLJUS002{
         
     }
 
+    std::unordered_map<char, std::string> HuffmanTree::get_ctbl(){
+        return codetbl;
+    }
+
     void HuffmanTree::compress_data(){
         std::stringstream cdstream;
         for(auto dat : data){
@@ -127,6 +135,10 @@ namespace WYLJUS002{
         std::cout << "Compressed Data Size: " << compressed_size << " bytes\n";
         std::cout << "Compression Ratio: " << (double) compressed_size/ (double) uncompressed_size << std::endl << std::endl;
 
+    }
+
+    std::string HuffmanTree::get_cdata(){
+        return this->compressed_data;
     }
 
 

@@ -38,9 +38,12 @@ class HuffmanTree{
     void generate_freq_map(); //Generate the frequency map based on string
     std::unordered_map<char, int> get_fmap(); //UNITTESTING
     void populate_tree(); //Generate the nodes in the tree
+    std::shared_ptr<HuffmanNode> get_root(); //UNITTESTING
     void build_codetable();
     void build_codetable(const std::shared_ptr<HuffmanNode> &node, std::string code); //Assign the nodes with huffman codes
+    std::unordered_map<char, std::string> get_ctbl(); //UNITTESTING
     void compress_data(); //Compress the data
+    std::string get_cdata(); //UNITTESTING
     void write_to_file(std::string fname); //Writes the message to file and writes the code table to file
     void write_to_binary_file(std::string fname); //Writes the message in compressed bidanry form
     void read_from_binary_file(std::string fname); //Reads in the data from the binary file

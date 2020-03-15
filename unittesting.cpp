@@ -37,6 +37,7 @@ TEST_CASE("Frequency Map Generation", "[generate_freq_map]"){
     REQUIRE(freq['x'] == 0);
 }
 
+
 TEST_CASE("Comparison", "[> and < and compare()]"){
     WYLJUS002::HuffmanTree tree;
     WYLJUS002::HuffmanNode nodea(5);
@@ -44,39 +45,102 @@ TEST_CASE("Comparison", "[> and < and compare()]"){
     WYLJUS002::HuffmanNode nodec(1, 'n');
 
     SECTION("> Operator"){
-        REQUIRE(!(nodea > nodeb));
+        REQUIRE(nodea > nodeb);
         REQUIRE(!(nodeb > nodec));
-        REQUIRE((nodeb > nodea));
+        REQUIRE(!(nodeb > nodea));
     }    
     
     SECTION("< Operator"){
-        REQUIRE((nodea < nodeb));
+        REQUIRE(!(nodea < nodeb));
         REQUIRE(!(nodeb < nodec));
-        REQUIRE(!(nodeb < nodea));
+        REQUIRE(nodeb < nodea);
     } 
 
     SECTION("Compare()"){
-        REQUIRE(!tree.compare(nodea,nodeb));
-        REQUIRE(!tree.compare(nodeb,nodec));
-        REQUIRE(tree.compare(nodeb,nodea));
+        WYLJUS002::HuffmanTree::compare cmp;
+        REQUIRE(cmp(nodea,nodeb));
+        REQUIRE(!cmp(nodeb,nodec));
+        REQUIRE(!cmp(nodeb,nodea));
     } 
-
 }
 
 TEST_CASE("Tree Population", "[populate_tree]"){
-    REQUIRE(0);
+    WYLJUS002::HuffmanTree tree;
+
+    std::string filename = "testdatafile.txt";
+    std::string dataforfile = "the cat sat on the mat";
+    std::ofstream file(filename);
+    file << dataforfile;
+    file.close();
+
+    tree.generate_tree(filename);
+    
+    REQUIRE(tree.get_root()->get_frequency() == 22);
+    REQUIRE(tree.get_root()->get_letter() == '\0');
+
+    REQUIRE(tree.get_root()->get_left().lock()->get_left().lock()->get_left().lock()->get_left().lock()->get_frequency() == 1);
+    REQUIRE(tree.get_root()->get_left().lock()->get_left().lock()->get_left().lock()->get_left().lock()->get_letter() == 'm');
+
+    REQUIRE(tree.get_root()->get_right().lock()->get_right().lock()->get_right().lock()->get_right().lock()->get_frequency() == 2);
+    REQUIRE(tree.get_root()->get_right().lock()->get_right().lock()->get_right().lock()->get_right().lock()->get_letter() == 'e');
 }
 
 
-TEST_CASE("Tree Destruction", "[populate_tree]"){
-    REQUIRE(0); //Get a weak ptr to a leaf node, nullptr the root and then try access the leaf..
+TEST_CASE("Tree Destruction", "[populate_tree]"){ //Memory cleanup and tree collapse
+
+    std::weak_ptr<WYLJUS002::HuffmanNode> wptr;
+    if(1){
+        WYLJUS002::HuffmanTree tree;
+
+        std::string filename = "testdatafile.txt";
+        std::string dataforfile = "the cat sat on the mat";
+        std::ofstream file(filename);
+        file << dataforfile;
+        file.close();
+
+        tree.generate_tree(filename);
+
+        wptr = tree.get_root()->get_left().lock()->get_left().lock()->get_left().lock()->get_left();
+        REQUIRE(!wptr.expired());
+    }
+    REQUIRE(wptr.expired());
+
 }
 
 TEST_CASE("Code Table Generation", "[determine_codetable]"){
-    REQUIRE(0);
+    WYLJUS002::HuffmanTree tree;
+
+    std::string filename = "testdatafile.txt";
+    std::string dataforfile = "the cat sat on the mat";
+    std::ofstream file(filename);
+    file << dataforfile;
+    file.close();
+
+    tree.generate_tree(filename);
+    tree.build_codetable();
+
+    std::unordered_map<char, std::string> ctbl = tree.get_ctbl();
+
+    REQUIRE(ctbl['m'].compare("0000") == 0);
+    REQUIRE(ctbl['o'].compare("0001") == 0);
+    REQUIRE(ctbl['e'].compare("1111") == 0);
+    REQUIRE(ctbl[' '].compare("10") == 0);
+    REQUIRE(ctbl['t'].compare("01") == 0);
 }
 
 TEST_CASE("Data Compression", "[compress_data]"){
-    REQUIRE(0);
+    WYLJUS002::HuffmanTree tree;
+
+    std::string filename = "testdatafile.txt";
+    std::string dataforfile = "aaaaabbbc";
+    std::ofstream file(filename);
+    file << dataforfile;
+    file.close();
+
+    tree.generate_tree(filename);
+    tree.build_codetable();
+    tree.compress_data();
+
+    REQUIRE(tree.get_cdata().compare("1111101010100") == 0);
 }
 
