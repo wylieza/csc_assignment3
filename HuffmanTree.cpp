@@ -115,21 +115,73 @@ namespace WYLJUS002{
         for(auto dat : data){
             cdstream << codetbl[dat];
         }
-        std::cout << "Compressed stream >" << cdstream.str() << "< done\n";
+        compressed_data = cdstream.str();
+        std::cout << "Compressed stream >" << compressed_data << "< done\n";
     }
 
+
+    void HuffmanTree::write_to_file(std::string fname){
+        std::ofstream ofile;
+        std::stringstream filename;
+
+        //save compressed data
+        filename << fname << ".txt";
+        ofile.open(filename.str());
+        if(ofile){
+            ofile << compressed_data;
+            ofile.close();
+        }else{
+            std::cout << "An error occured during file write out!\n";
+        }
+
+        //save code table
+        filename.str(fname);
+        filename << ".hdr";
+        
+    
+    }
+
+
+    void HuffmanTree::write_to_binary_file(std::string fname){
+        
+    }
+
+
+    void HuffmanTree::read_from_binary_file(std::string fname){
+        
+    }
+
+
+
+
+
+
     void HuffmanTree::decompress_data(){
-        int index = 0;
+        int index = 1;
         std::string temp = compressed_data;
+        std::string decoded = "";
 
         //Create a decodetbl
-        
+        std::unordered_map<std::string, char> decodetbl;
+        for(auto lcitem : codetbl){
+            decodetbl[lcitem.second] = lcitem.first;
+        }
 
-        while(temp.size() > 0){
-            if(codetbl.find(temp.substr(0, index)) == codetbl.end()){
+        //debug stats
+        int last;
 
+        //Match up codes to letters
+        while(temp.length() > 0){
+            if(decodetbl.find(temp.substr(0, index)) != decodetbl.end()){
+                decoded.push_back(decodetbl[temp.substr(0, index)]);
+                temp = temp.substr(index, temp.length());
+                index = 1;
+            }else{
+                index++;
             }
         }
+
+        std::cout << "Message >" << decoded << "< end \n";
     }
 
     bool HuffmanTree::compare::operator()(HuffmanNode &a, HuffmanNode &b){
