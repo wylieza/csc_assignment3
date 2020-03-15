@@ -2,8 +2,8 @@
 
 
 --- Instructions for use ---
-The data to be encoded should be placed in a text file. When suppling the input and output file
-names, the externsions should be included.
+The data to be encoded should be placed in a text file in the same directory as the
+executable. When suppling the input and output file names, the extensions should be included.
 
 The program will save the huffman encoded data into a file with the name given by the output
 file argument. The program will then attempt to change the extension from the one given to
@@ -12,9 +12,10 @@ file argument. The program will then attempt to change the extension from the on
 Example:
 ./huffencode input_data.txt output_data.txt
 
-Produces two output files:
+Produces three output files:
 output_data.txt -> Containing the huffman encoded data
 output_data.hdr -> Containing the encoding table
+output_data.raw -> Containing the huffman encoded data as a bit-stream
 
 -- Program Arguments --
 
@@ -34,7 +35,7 @@ make run args="<Custom args>"   -> Runs the huffencode binary with the argument(
 
 >> Unit Testing <<
 make unittesting                -> This will compile, but not execute the unit tests
-make unittest                   -> Execute the unittesting binary (Perform the unit tests)
+make unittest                   -> Execute the 'unittesting' binary (Perform the unit tests)
 
 _________________________________________________________________________________________________
 
@@ -62,6 +63,10 @@ tree.
 
 >> HuffmanNode.cpp <<
 This source constitutes all the definitions of the methods declared in the HuffmenNode class.
+
+>> unittesting.cpp <<
+This file contains all the unit tests. Including the unit tests for the additional work
+sections of the assignment.
 
 
 --- Student Details ---
