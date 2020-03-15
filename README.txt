@@ -20,6 +20,7 @@ output_data.hdr -> Containing the encoding table
 
 <input filename> <output filename>
 
+
 --- MAKEFILE ---
 The makefile will allow the program to be compiled, run and binaries to be cleaned.
 Unit testing may also be performed using the make file

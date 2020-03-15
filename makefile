@@ -26,4 +26,4 @@ unittest: unittesting
 	./unittesting
 
 clean:
-	rm -rf huffencode huffencode.o HuffmanTree.o
+	rm -rf huffencode unittesting huffencode.o HuffmanTree.o HuffenNode.o unittesting.o
