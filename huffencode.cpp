@@ -15,5 +15,6 @@ int main(int argc, char *argv){
     tree.generate_freq_map();
     tree.populate_tree();
     tree.build_codetable();
+    tree.compress_data();
 
 }

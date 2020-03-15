@@ -38,7 +38,8 @@ class HuffmanTree{
     void populate_tree(); //Generate the nodes in the tree
     void build_codetable();
     void build_codetable(const std::shared_ptr<HuffmanNode> &node, std::string code); //Assign the nodes with huffman codes
-    void compress_data(); //Compress the data and return it 
+    void compress_data(); //Compress the data and return it
+    void decompress_data();
 
     struct compare{
         bool operator()(HuffmanNode &a, HuffmanNode &b);

@@ -110,9 +110,26 @@ namespace WYLJUS002{
         
     }
 
-
     void HuffmanTree::compress_data(){
+        std::stringstream cdstream;
+        for(auto dat : data){
+            cdstream << codetbl[dat];
+        }
+        std::cout << "Compressed stream >" << cdstream.str() << "< done\n";
+    }
+
+    void HuffmanTree::decompress_data(){
+        int index = 0;
+        std::string temp = compressed_data;
+
+        //Create a decodetbl
         
+
+        while(temp.size() > 0){
+            if(codetbl.find(temp.substr(0, index)) == codetbl.end()){
+
+            }
+        }
     }
 
     bool HuffmanTree::compare::operator()(HuffmanNode &a, HuffmanNode &b){
@@ -120,7 +137,6 @@ namespace WYLJUS002{
         //return a.get_frequency() > b.get_frequency();
         return a > b;
     }
-
 
 
 
