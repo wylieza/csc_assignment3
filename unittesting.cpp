@@ -160,3 +160,27 @@ TEST_CASE("Data Compression", "[compress_data]"){
     REQUIRE(tree.get_cdata().compare("1111101010100") == 0);
 }
 
+TEST_CASE("Binary File Write and Read", "[Binary read and write]"){
+    WYLJUS002::HuffmanTree tree;
+
+    std::string filename = "testdatafile.txt";
+    std::string binfname = "testdatafile.raw";
+    std::string dataforfile = "Hello, World!";
+    std::ofstream file(filename);
+    file << dataforfile;
+    file.close();
+
+    tree.generate_tree(filename);
+    tree.build_codetable();
+    tree.compress_data();
+
+    tree.write_to_binary_file(binfname);
+
+    tree.read_from_binary_file(binfname);
+
+    std::remove(filename.c_str());
+    std::remove(binfname.c_str());
+
+    REQUIRE(tree.get_cdata().compare(tree.get_binary_fdata()) == 0);
+}
+

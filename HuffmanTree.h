@@ -7,6 +7,7 @@
 #include <unordered_map> //Unordered map - freq counter
 #include <memory>
 #include <queue> //Priority queue
+#include <bitset> //For printing binary
 
 namespace WYLJUS002{
 
@@ -17,6 +18,7 @@ class HuffmanTree{
     std::shared_ptr<HuffmanNode> root = nullptr;
     std::string data;
     std::string compressed_data;
+    std::string raw_in_cdata;
     std::unordered_map<char, int> frequencies;
     std::unordered_map<char, std::string> codetbl;
 
@@ -47,6 +49,7 @@ class HuffmanTree{
     void write_to_file(std::string fname); //Writes the message to file and writes the code table to file
     void write_to_binary_file(std::string fname); //Writes the message in compressed bidanry form
     void read_from_binary_file(std::string fname); //Reads in the data from the binary file
+    std::string get_binary_fdata();
     void decompress_data();
 
     struct compare{

@@ -25,7 +25,11 @@ int main(int argc, char *argv[]){
     tree.compress_data();
 
     tree.write_to_file(outputfile);
-    
-    tree.decompress_data();
+    tree.write_to_binary_file(outputfile);
+
+    tree.read_from_binary_file(outputfile);
+    //std::cout << "hello\n";
+
+    //tree.decompress_data(); //Bonus feature, not required
 
 }

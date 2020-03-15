@@ -130,7 +130,7 @@ namespace WYLJUS002{
         }
         compressed_data = cdstream.str();
         int uncompressed_size = data.length();
-        int compressed_size = data.length()/8 + (data.length()%8? 1:0);
+        int compressed_size = compressed_data.length()/8 + (compressed_data.length()%8? 1:0);
         std::cout << "\n>>> Data compression statistics <<<\nOriginal Data Size: " << uncompressed_size << " bytes\n";
         std::cout << "Compressed Data Size: " << compressed_size << " bytes\n";
         std::cout << "Compression Ratio: " << (double) compressed_size/ (double) uncompressed_size << std::endl << std::endl;
@@ -178,12 +178,106 @@ namespace WYLJUS002{
 
 
     void HuffmanTree::write_to_binary_file(std::string fname){
+        //Generate bit stream
+        int num_bits = compressed_data.length();
+        int num_bytes = num_bits/8 + (num_bits%8 ? 1:0);
+        int index = 0;
+        uint8_t bit_seq[num_bytes];
+
+        //std::cout << compressed_data << std::endl << "-----------------------\n"; 
+
+        for(int i = 0; i < sizeof(bit_seq); i++){
+            bit_seq[i] = 0;
+            for (int shift = 7; shift > -1 && index < num_bits; shift--){
+                bit_seq[i] |= ((int) compressed_data[index++] - (int) '0') << shift;
+            }
+            //std::cout << std::bitset<8>(bit_seq[i]);
+        }
+        //std::cout << std::endl;
+
+        //Write to file
+        std::stringstream filename;
+        if(fname.find('.') != std::string::npos){
+            filename << fname.substr(0, fname.find('.')) << ".raw";
+        }else{
+            filename << fname << ".raw";
+        }
+        std::ofstream outfile(filename.str(), std::ios::binary);
+
+        if(outfile){
+            //Write the integer (sizeof(int))
+            uint8_t arrnum_bits[sizeof(int)];
+            int *arrnum_bits_ptr = (int*) arrnum_bits;
+            *arrnum_bits_ptr = num_bits;
+            outfile.write((char*) arrnum_bits, sizeof(int));
+
+            //Write the reset of the bit sequence
+            outfile.write((char *) bit_seq, num_bytes);
+
+            outfile.close();
+        }else{
+            std::cout << "Error occured while trying to write to binary file\n";
+            exit(0);
+        }
         
     }
 
 
     void HuffmanTree::read_from_binary_file(std::string fname){
+        //raw_in_cdata
+         //Read from file
+        std::stringstream filename;
+        if(fname.find('.') != std::string::npos){
+            filename << fname.substr(0, fname.find('.')) << ".raw";
+        }else{
+            filename << fname << ".raw";
+        }
+
+        std::ifstream infile(filename.str(), std::ios::binary);
+
+        //Determine length of file
+        int length;
+        infile.seekg(0, infile.end);
+        length = infile.tellg();
+        infile.seekg(0, infile.beg);
+
+        if (length < sizeof(int)){
+            std::cout << "File does not have any content!\n";
+            exit(0);
+        }
+
+        char *buffer = new char[4];
+        infile.read(buffer, 4);
+        int num_bits = *((int *) buffer);
+        int num_bytes = num_bits/8 + (num_bits%8 ? 1:0);
         
+        delete[] buffer;
+
+        buffer = new char[num_bytes];
+        infile.read(buffer, num_bytes);
+
+        for(int i = 0; i < num_bytes; i++){
+            for(int shift = 7; shift > -1; shift--){
+                if(i*8 + (7-shift) < num_bits){
+                    raw_in_cdata.push_back((int) '0' + ((buffer[i] & (1 << shift)) >> (shift)));
+                }
+            }
+        }
+
+        delete[] buffer;
+        infile.close();
+
+        std::cout << ">>>Binary File Extracted Bit-Stream Check<<<\n" << std::endl;
+
+        std::cout << "Original:\n" << compressed_data << std::endl << std::endl;
+
+        std::cout << "Raw from file:\n" << raw_in_cdata << std::endl << std::endl;
+
+
+    }
+
+    std::string HuffmanTree::get_binary_fdata(){
+        return raw_in_cdata;
     }
 
 
@@ -212,7 +306,7 @@ namespace WYLJUS002{
             }
         }
 
-        //std::cout << "Message >" << decoded << "< end \n";
+        std::cout << ">>>Decompressed data<<<\n" << decoded << "\n";
     }
 
     bool HuffmanTree::compare::operator()(HuffmanNode &a, HuffmanNode &b){
