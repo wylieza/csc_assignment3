@@ -54,7 +54,6 @@ namespace WYLJUS002{
     void HuffmanTree::generate_freq_map(){
         for (int i = 0; i < data.length(); i++){
             frequencies[(char) data[i]] += 1;
-            //std::cout << "Letter: " << (char) data[i] << " freq of: " << frequencies[(char) data[i]] << std::endl;
         }
         
     }
