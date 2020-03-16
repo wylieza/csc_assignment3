@@ -39,7 +39,7 @@ class HuffmanNode{
     //Operator overloading
     
     //Move assignment
-    HuffmanNode operator=(HuffmanNode&& other);
+    HuffmanNode& operator=(HuffmanNode&& other);
 
 
     //Copy assignment

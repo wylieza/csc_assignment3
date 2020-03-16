@@ -41,7 +41,8 @@ namespace WYLJUS002{
             data = data.substr(0, data.length()-1); //Remove the last \n
 
         }else{
-            std::cout << "An error occured while trying to open file!";
+            std::cout << "An error occured while trying to open file!\n";
+            exit(0);
         }
     }
 
@@ -65,6 +66,7 @@ namespace WYLJUS002{
 
     void HuffmanTree::populate_tree(){
         std::priority_queue<HuffmanNode, std::vector<HuffmanNode>, HuffmanTree::compare> node_pqueue;
+
         //Load up all frequency-letter pairs into priority queue of nodes
         for(auto lfitem : frequencies){
             HuffmanNode n(lfitem.second, lfitem.first); //(frequency, letter)
@@ -148,6 +150,7 @@ namespace WYLJUS002{
             ofile.close();
         }else{
             std::cout << "An error occured during file write out!\n";
+            exit(0);
         }
 
         //save code table
@@ -169,6 +172,7 @@ namespace WYLJUS002{
             ofile.close();
         }else{
             std::cout << "An error occured during file write out!\n";
+            exit(0);
         }
     }
 

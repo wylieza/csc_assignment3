@@ -23,6 +23,7 @@ namespace WYLJUS002{
         right = nullptr;
     }
 
+
     //Move constructor
     HuffmanNode::HuffmanNode(HuffmanNode&& other){
         frequency = other.frequency;
@@ -56,8 +57,9 @@ namespace WYLJUS002{
         right = other.right;
     }
 
+
     //Move assignment operator
-    HuffmanNode HuffmanNode::operator=(HuffmanNode&& other){
+    HuffmanNode& HuffmanNode::operator=(HuffmanNode&& other){
         frequency = other.frequency;
         letter = other.letter;
         left = other.left;

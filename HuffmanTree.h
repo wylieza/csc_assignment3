@@ -52,7 +52,10 @@ class HuffmanTree{
     std::string get_binary_fdata(); //UNITTESTING
     //void decompress_data(); //Bonus functionality, not required
 
-    struct compare{
+    struct 
+    
+    
+    compare{
         bool operator()(HuffmanNode &a, HuffmanNode &b);
     };
     
