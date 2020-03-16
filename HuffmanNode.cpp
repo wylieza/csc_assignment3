@@ -4,8 +4,7 @@ namespace WYLJUS002{
 
 
     //Default Constructor
-    HuffmanNode::HuffmanNode(){
-        //std::cout << "Default constructor called\n";        
+    HuffmanNode::HuffmanNode(){   
         frequency = -1;
         letter = '\0';
         left = nullptr;
@@ -13,13 +12,11 @@ namespace WYLJUS002{
     
     }
 
-
     HuffmanNode::HuffmanNode(int freq){
         HuffmanNode(freq, '\0');
     }
 
-    HuffmanNode::HuffmanNode(int freq, char lett){
-        //std::cout << "Non-default constructor called\n"; 
+    HuffmanNode::HuffmanNode(int freq, char lett){ 
         frequency = freq;
         letter = lett;
         left = nullptr;
@@ -27,20 +24,21 @@ namespace WYLJUS002{
     }
 
     //Move constructor
-
-
-
-    //Copy constructor
-    HuffmanNode::HuffmanNode(const HuffmanNode &node){
-        //std::cout << "Copy constructor called\n"; 
-        this->frequency = node.frequency;
-        this->letter = node.letter;
-        this->left = node.left;
-        this->right = node.right;
-
+    HuffmanNode::HuffmanNode(HuffmanNode&& other){
+        frequency = other.frequency;
+        letter = other.letter;
+        left = other.left;
+        right = other.right;
     }
 
+    //Copy constructor
+    HuffmanNode::HuffmanNode(const HuffmanNode &other){
+        frequency = other.frequency;
+        letter = other.letter;
+        left = other.left;
+        right = other.right;
 
+    }
 
     //Destructor
     HuffmanNode::~HuffmanNode(){
@@ -49,11 +47,22 @@ namespace WYLJUS002{
 
 
     //Operator overloading
-    
-    //Copy assignment operator
 
+    //Copy assignment operator
+    HuffmanNode& HuffmanNode::operator=(const HuffmanNode& other){
+        frequency = other.frequency;
+        letter = other.letter;
+        left = other.left;
+        right = other.right;
+    }
 
     //Move assignment operator
+    HuffmanNode HuffmanNode::operator=(HuffmanNode&& other){
+        frequency = other.frequency;
+        letter = other.letter;
+        left = other.left;
+        right = other.right;
+    }
 
 
     bool HuffmanNode::operator<(HuffmanNode &noder){

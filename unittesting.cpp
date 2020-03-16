@@ -4,6 +4,53 @@
 #include "HuffmanNode.h"
 #include <cstdio>
 
+TEST_CASE("Move Constructor", "[HuffmanNode]"){
+    char letter = 'x';
+    int frequency = 1;
+
+    WYLJUS002::HuffmanNode node(WYLJUS002::HuffmanNode(frequency, letter));
+    
+    REQUIRE(node.get_frequency() == frequency);
+    REQUIRE(node.get_letter() == letter);
+}
+
+TEST_CASE("Copy Constructor", "[HuffmanNode]"){
+    char letter;
+    int frequency;
+
+    WYLJUS002::HuffmanNode root(9);
+
+    WYLJUS002::HuffmanNode newroot(root);
+
+    REQUIRE(newroot.get_frequency() == root.get_frequency());
+    REQUIRE(newroot.get_letter() == root.get_letter());
+
+}
+
+TEST_CASE("Move Assignment Operator", "[HuffmanNode]"){
+    char letter = 'x';
+    int frequency = 1;
+
+    WYLJUS002::HuffmanNode node = WYLJUS002::HuffmanNode(frequency, letter);
+    
+    REQUIRE(node.get_frequency() == frequency);
+    REQUIRE(node.get_letter() == letter);
+}
+
+TEST_CASE("Copy Assignment Operator", "[HuffmanNode]"){
+    char letter;
+    int frequency;
+
+    WYLJUS002::HuffmanNode root(9);
+
+    WYLJUS002::HuffmanNode newroot;
+
+    newroot = root;
+
+    REQUIRE(newroot.get_frequency() == root.get_frequency());
+    REQUIRE(newroot.get_letter() == root.get_letter());
+}
+
 TEST_CASE("Read in data", "[data_from_file]"){
     WYLJUS002::HuffmanTree tree;
 

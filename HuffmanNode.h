@@ -13,12 +13,10 @@ class HuffmanNode{
 
     private:
 
-    std::shared_ptr<HuffmanNode> testleft;
     std::shared_ptr<HuffmanNode> left;
     std::shared_ptr<HuffmanNode> right;
     char letter;
     int frequency;
-    std::string code;
 
 
     public:
@@ -32,10 +30,20 @@ class HuffmanNode{
     //CC
     HuffmanNode(const HuffmanNode &node);
 
+    //Move constructor
+    HuffmanNode(HuffmanNode&& other);
+
     //Destructor
     ~HuffmanNode();
 
     //Operator overloading
+    
+    //Move assignment
+    HuffmanNode operator=(HuffmanNode&& other);
+
+
+    //Copy assignment
+    HuffmanNode& operator=(const HuffmanNode& other);
 
     bool operator<(HuffmanNode &noder);
     bool operator>(HuffmanNode &noder);

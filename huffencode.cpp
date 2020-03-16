@@ -6,7 +6,7 @@ int main(int argc, char *argv[]){
         std::cout << "Invalid number of arguments!\n";
         exit(0);
     }
-    
+
     std::string inputfile(argv[1]);
     std::string outputfile(argv[2]);
 
